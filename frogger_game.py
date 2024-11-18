@@ -8,7 +8,7 @@ class Settings:
     FPS = 60
     FILE_PATH = os.path.dirname(os.path.abspath(__file__))
     IMAGE_PATH = os.path.join(FILE_PATH, "Images_frogger")
-    genereller_speed = 5  # Geschwindigkeit auf 5 für bessere Bewegung
+    genereller_speed = 1
 
 class Rabbit(pygame.sprite.Sprite):
     def __init__(self):
@@ -17,7 +17,7 @@ class Rabbit(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (60, 60))
         self.rect = self.image.get_rect()
 
-        # Setze die Startposition auf die Mitte unten
+        
         self.rect.midbottom = (Settings.WINDOW_WIDTH // 2, Settings.WINDOW_HEIGHT - 10)
 
     def bewegen_player(self):
@@ -31,7 +31,7 @@ class Rabbit(pygame.sprite.Sprite):
         if keys[pygame.K_RIGHT]:
             self.rect.x += Settings.genereller_speed
 
-        # Begrenze die Position des Hasen innerhalb des Bildschirms
+    
         self.rect.x = max(0, min(self.rect.x, Settings.WINDOW_WIDTH - self.rect.width))
         self.rect.y = max(0, min(self.rect.y, Settings.WINDOW_HEIGHT - self.rect.height))
 
@@ -43,7 +43,7 @@ def main():
     pygame.display.set_caption("Frogger")
     clock = pygame.time.Clock()
 
-    rabbit = Rabbit()  # Initialisiere den Hasen ohne x und y, da die Startposition in der Klasse definiert ist
+    rabbit = Rabbit() 
 
     background_image = pygame.image.load(os.path.join(Settings.IMAGE_PATH, "strasse.png")).convert()
     background_image = pygame.transform.scale(background_image, (Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT))
@@ -59,8 +59,8 @@ def main():
 
         rabbit.bewegen_player()
 
-        screen.blit(background_image, (0, 0))  # Hintergrundbild anzeigen
-        screen.blit(rabbit.image, rabbit.rect.topleft)  # Hase anzeigen
+        screen.blit(background_image, (0, 0))  
+        screen.blit(rabbit.image, rabbit.rect.topleft)
         pygame.display.flip()
         clock.tick(Settings.FPS)
 
